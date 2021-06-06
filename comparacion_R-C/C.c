@@ -122,3 +122,44 @@ int main(){
   }
   return 0;
 }
+
+
+/*
+
+Promedio (for) iteracion   1: 0.000001
+Promedio (while) iteracion 1: 0.000001
+
+Promedio (for) iteracion   2: 0.000002
+Promedio (while) iteracion 2: 0.000001
+
+Promedio (for) iteracion   3: 0.000002
+Promedio (while) iteracion 3: 0.000002
+
+Promedio (for) iteracion   4: 0.000004
+Promedio (while) iteracion 4: 0.000002
+
+Promedio (for) iteracion   5: 0.000022
+Promedio (while) iteracion 5: 0.000003
+
+Promedio (for) iteracion   6: 0.000039
+Promedio (while) iteracion 6: 0.000006
+
+Promedio (for) iteracion   7: 0.000347
+Promedio (while) iteracion 7: 0.000012
+
+Promedio (for) iteracion   8: 0.001517
+Promedio (while) iteracion 8: 0.000028
+
+Promedio (for) iteracion   9: 0.008448
+Promedio (while) iteracion 9: 0.000082
+
+Promedio (for) iteracion   10: 0.023046
+Promedio (while) iteracion 10: 0.000138
+
+Promedio (for) iteracion   11: 0.205554
+Promedio (while) iteracion 11: 0.000255
+
+Promedio (for) iteracion   12: 1.159142
+Promedio (while) iteracion 12: 0.000528
+
+*/
