@@ -6,11 +6,11 @@
 //N y M dimenciones de la Matriz
 int n = 2;
 int m = 2;
-int** generarMatriz(int Nmax, int **Matriz) {
+float** generarMatriz(int Nmax, float **Matriz) {
   int i, j;
-  Matriz = (int **)malloc(n * sizeof(int*)); 
+  Matriz = (float **)malloc(n * sizeof(float*)); 
   for (i = 0; i < n; i++) {
-    Matriz[i] = (int *)malloc(m * sizeof(int));
+    Matriz[i] = (float *)malloc(m * sizeof(float));
     for (j = 0; j < m; j++) {
       Matriz[i][j] = rand() % (Nmax + 1);
     }
@@ -18,9 +18,9 @@ int** generarMatriz(int Nmax, int **Matriz) {
   return Matriz;
 }
 
-int* sumaColumnasFOR(int **Matriz,  int *Vector) {
+float* sumaColumnasFOR(float **Matriz,  float *Vector) {
   int i, j;
-  Vector = (int *)malloc(m * sizeof(int)); 
+  Vector = (float *)malloc(m * sizeof(float)); 
   for (i = 0; i < m; i++) {
     Vector[i] = 0;
     for (j = 0; j < n; j++) {
@@ -30,9 +30,9 @@ int* sumaColumnasFOR(int **Matriz,  int *Vector) {
   return Vector;
 }
 
-int* sumaColumnasWHILE(int **Matriz,  int *Vector) {
+float* sumaColumnasWHILE(float **Matriz,  float *Vector) {
   int i = 0, j = 0;
-  Vector = (int *)malloc(m * sizeof(int)); 
+  Vector = (float *)malloc(m * sizeof(float)); 
   while (i < m) {
     Vector[i] = 0;
     while (j < n) {
@@ -43,7 +43,7 @@ int* sumaColumnasWHILE(int **Matriz,  int *Vector) {
   }
   return Vector;
 }
-void liberar(int **Matriz){
+void liberar(float **Matriz){
   int i;
   for (i = 0; i < n; i++)
     free(Matriz[i]);
@@ -53,13 +53,13 @@ void liberar(int **Matriz){
 
 double funcionFOR(f, c){
   clock_t inicio, fin, S;
-  int **M = NULL;
-  int *V = NULL;  
+  float **M = NULL;
+  float *V = NULL;  
 
   n = f;
   m = c;
 
-  M = generarMatriz(10, M);
+  M = generarMatriz(10000, M);
 
   inicio = clock();
   V = sumaColumnasFOR(M,V);
@@ -75,13 +75,13 @@ double funcionFOR(f, c){
 
 double funcionWHILE(f, c){
   clock_t inicio, fin, S;
-  int **M = NULL;
-  int *V = NULL;  
+  float **M = NULL;
+  float *V = NULL;  
 
   n = f;
   m = c;
 
-  M = generarMatriz(10, M);
+  M = generarMatriz(10000, M);
 
   inicio = clock();
   V = sumaColumnasWHILE(M,V);
