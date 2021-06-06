@@ -24,7 +24,7 @@ float* sumaColumnasFOR(float **Matriz,  float *Vector) {
   for (i = 0; i < m; i++) {
     Vector[i] = 0;
     for (j = 0; j < n; j++) {
-      Vector[i] += Matriz[j][i];
+      Vector[i] = Vector[i] + Matriz[j][i];
     }
   }
   return Vector;
@@ -36,7 +36,7 @@ float* sumaColumnasWHILE(float **Matriz,  float *Vector) {
   while (i < m) {
     Vector[i] = 0;
     while (j < n) {
-      Vector[i] += Matriz[j][i];
+      Vector[i] = Vector[i] + Matriz[j][i];
       j++;
     }
     i++;
@@ -110,8 +110,8 @@ int main(){
   {
     for (j = 0; j < 15; j++)
     {
-      PromedioFOR += funcionFOR(pow(2,i),pow(2,i+1));
-      PromedioWHILE += funcionWHILE(pow(2,i),pow(2,i+1));
+      PromedioFOR = PromedioFOR + funcionFOR(pow(2,i),pow(2,i+1));
+      PromedioWHILE = PromedioWHILE + funcionWHILE(pow(2,i),pow(2,i+1));
     }
     PromedioFOR /= 15;
     PromedioWHILE /= 15;
@@ -122,42 +122,43 @@ int main(){
   }
   return 0;
 }
-/*
-copilado en https://replit.com/
-Promedio (for) iteracion   1: 0.000003
+
+/* 
+
+Promedio (for) iteracion   1: 0.000001
 Promedio (while) iteracion 1: 0.000001
 
 Promedio (for) iteracion   2: 0.000002
-Promedio (while) iteracion 2: 0.000001
+Promedio (while) iteracion 2: 0.000004
 
-Promedio (for) iteracion   3: 0.000002
-Promedio (while) iteracion 3: 0.000003
+Promedio (for) iteracion   3: 0.000003
+Promedio (while) iteracion 3: 0.000002
 
 Promedio (for) iteracion   4: 0.000004
-Promedio (while) iteracion 4: 0.000002
+Promedio (while) iteracion 4: 0.000001
 
-Promedio (for) iteracion   5: 0.000017
-Promedio (while) iteracion 5: 0.000005
+Promedio (for) iteracion   5: 0.000014
+Promedio (while) iteracion 5: 0.000002
 
-Promedio (for) iteracion   6: 0.000047
-Promedio (while) iteracion 6: 0.000010
+Promedio (for) iteracion   6: 0.000045
+Promedio (while) iteracion 6: 0.000006
 
-Promedio (for) iteracion   7: 0.000208
+Promedio (for) iteracion   7: 0.000233
 Promedio (while) iteracion 7: 0.000008
 
-Promedio (for) iteracion   8: 0.001318
-Promedio (while) iteracion 8: 0.000026
+Promedio (for) iteracion   8: 0.001081
+Promedio (while) iteracion 8: 0.000016
 
-Promedio (for) iteracion   9: 0.007522
-Promedio (while) iteracion 9: 0.000083
+Promedio (for) iteracion   9: 0.005589
+Promedio (while) iteracion 9: 0.000054
 
-Promedio (for) iteracion   10: 0.035895
-Promedio (while) iteracion 10: 0.000189
+Promedio (for) iteracion   10: 0.027096
+Promedio (while) iteracion 10: 0.000128
 
-Promedio (for) iteracion   11: 0.246647
-Promedio (while) iteracion 11: 0.000335
+Promedio (for) iteracion   11: 0.146320
+Promedio (while) iteracion 11: 0.000219
 
-Promedio (for) iteracion   12: 1.018295
-Promedio (while) iteracion 12: 0.000532
+Promedio (for) iteracion   12: 0.942314
+Promedio (while) iteracion 12: 0.000471
 
 */
