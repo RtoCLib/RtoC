@@ -25,7 +25,8 @@ LOGAND : "&&"
 LOGOREW : "|"
 LOGOR : "||"
 COMMENT : "#"
-STRING : \"[^\"]*\"
+STRING : \"[^\"]*\"|\'[^\']*\'
 INTEGER : [0-9]+
 FLOAT : [0-9]+/./[0-9]+
 BASICTYPE : STRING|INTEGER|FLOAT
+OPERATIONCOMP : ["%"]/[^0-9a-zA-Z]/["%"]
