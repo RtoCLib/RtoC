@@ -8,7 +8,7 @@ int n = 2;
 int m = 2;
 float** generarMatriz(int Nmax, float **Matriz) {
   int i, j;
-  Matriz = (float **)malloc(n * sizeof(float*)); 
+  Matriz = (float **)malloc(n * sizeof(float*));
   for (i = 0; i < n; i++) {
     Matriz[i] = (float *)malloc(m * sizeof(float));
     for (j = 0; j < m; j++) {
@@ -20,7 +20,7 @@ float** generarMatriz(int Nmax, float **Matriz) {
 
 float* sumaColumnasFOR(float **Matriz,  float *Vector) {
   int i, j;
-  Vector = (float *)malloc(m * sizeof(float)); 
+  Vector = (float *)malloc(m * sizeof(float));
   for (i = 0; i < m; i++) {
     Vector[i] = 0;
     for (j = 0; j < n; j++) {
@@ -32,7 +32,7 @@ float* sumaColumnasFOR(float **Matriz,  float *Vector) {
 
 float* sumaColumnasWHILE(float **Matriz,  float *Vector) {
   int i = 0, j = 0;
-  Vector = (float *)malloc(m * sizeof(float)); 
+  Vector = (float *)malloc(m * sizeof(float));
   while (i < m) {
     Vector[i] = 0;
     while (j < n) {
@@ -51,10 +51,10 @@ void liberar(float **Matriz){
 }
 
 
-float funcionFOR(f, c){
+float funcionFOR(int f,int c){
   clock_t inicio, fin, S;
   float **M = NULL;
-  float *V = NULL;  
+  float *V = NULL;
 
   n = f;
   m = c;
@@ -73,10 +73,10 @@ float funcionFOR(f, c){
 
 
 
-double funcionWHILE(f, c){
+double funcionWHILE(int f, int c){
   clock_t inicio, fin, S;
   float **M = NULL;
-  float *V = NULL;  
+  float *V = NULL;
 
   n = f;
   m = c;
@@ -106,6 +106,8 @@ double funcionWHILE(f, c){
 int main(){
   int i, j;
   double PromedioFOR = 0, PromedioWHILE = 0;
+  FILE *out = fopen("C_out.csv", "w");
+    fprintf(out, "Promedio For, Promedio while\n");
   for (i = 1; i <= 12; i++)
   {
     for (j = 0; j < 15; j++)
@@ -115,15 +117,15 @@ int main(){
     }
     PromedioFOR /= 15;
     PromedioWHILE /= 15;
-    printf("Promedio (for) iteracion   %d: %f\n", i,PromedioFOR);
-    printf("Promedio (while) iteracion %d: %f\n\n", i,PromedioWHILE);
+    fprintf(out, "%f, %f\n", PromedioFOR, PromedioWHILE);
     PromedioFOR = 0;
     PromedioWHILE = 0;
   }
+  fclose(out);
   return 0;
 }
 
-/* 
+/*
 
 Promedio (for) iteracion   1: 0.000001
 Promedio (while) iteracion 1: 0.000001
