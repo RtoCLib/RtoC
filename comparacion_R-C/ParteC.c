@@ -106,17 +106,20 @@ double funcionWHILE(int f,int c){
 int main(){
   int i, j, iter_j = 15, k = 12;
   double PromedioFOR = 0, PromedioWHILE = 0, A, B;
-  FILE *Archivo;
+  FILE *Archivo, *Archivo2;
   Archivo = fopen("Promedios_C.csv", "w+");
+  Archivo2 = fopen("Datos_C.csv", "w+");
   fprintf(Archivo, "%s,", "k");
+  fprintf(Archivo2, "%s,", "k");
   for (j = 0; j < iter_j; j++)
-    fprintf(Archivo, "For_%d,While_%d,", i, i);
+    fprintf(Archivo, "For_%d,While_%d,", j, j);
 
-  fprintf(Archivo, "%s,%s\n", "P_For", "P_While");
-  
+  fprintf(Archivo, "\n");
+  fprintf(Archivo2, "%s,%s\n", "P_For", "P_While");
   for (i = 1; i <= k; i++)
   {
     fprintf(Archivo, "%d,", i);
+    fprintf(Archivo2, "%d,", i);
     for (j = 0; j < iter_j; j++)
     {
       A = funcionFOR(pow(2,i),pow(2,i+1));
@@ -127,11 +130,14 @@ int main(){
     }
     PromedioFOR /= iter_j;
     PromedioWHILE /= iter_j;
-    fprintf(Archivo, "%lf,%lf\n",PromedioFOR,PromedioWHILE);
+    fprintf(Archivo2, "%lf,%lf\n",PromedioFOR,PromedioWHILE);
+    fprintf(Archivo, "\n");
     PromedioFOR = 0;
     PromedioWHILE = 0;
   }
   puts("Completado");
+  fclose(Archivo);
+  fclose(Archivo2);
   return 0;
 }
 
