@@ -51,7 +51,7 @@ void liberar(float **Matriz){
 }
 
 
-float funcionFOR(f, c){
+float funcionFOR(int f, int c){
   clock_t inicio, fin, S;
   float **M = NULL;
   float *V = NULL;  
@@ -135,42 +135,3 @@ int main(){
   return 0;
 }
 
-/* 
-
-Promedio (for) iteracion   1: 0.000001
-Promedio (while) iteracion 1: 0.000001
-
-Promedio (for) iteracion   2: 0.000002
-Promedio (while) iteracion 2: 0.000004
-
-Promedio (for) iteracion   3: 0.000003
-Promedio (while) iteracion 3: 0.000002
-
-Promedio (for) iteracion   4: 0.000004
-Promedio (while) iteracion 4: 0.000001
-
-Promedio (for) iteracion   5: 0.000014
-Promedio (while) iteracion 5: 0.000002
-
-Promedio (for) iteracion   6: 0.000045
-Promedio (while) iteracion 6: 0.000006
-
-Promedio (for) iteracion   7: 0.000233
-Promedio (while) iteracion 7: 0.000008
-
-Promedio (for) iteracion   8: 0.001081
-Promedio (while) iteracion 8: 0.000016
-
-Promedio (for) iteracion   9: 0.005589
-Promedio (while) iteracion 9: 0.000054
-
-Promedio (for) iteracion   10: 0.027096
-Promedio (while) iteracion 10: 0.000128
-
-Promedio (for) iteracion   11: 0.146320
-Promedio (while) iteracion 11: 0.000219
-
-Promedio (for) iteracion   12: 0.942314
-Promedio (while) iteracion 12: 0.000471
-
-*/
