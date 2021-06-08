@@ -51,7 +51,7 @@ void liberar(float **Matriz){
 }
 
 
-float funcionFOR(f, c){
+float funcionFOR(int f, int c){
   clock_t inicio, fin, S;
   float **M = NULL;
   float *V = NULL;  
@@ -73,7 +73,7 @@ float funcionFOR(f, c){
 
 
 
-double funcionWHILE(f, c){
+double funcionWHILE(int f,int c){
   clock_t inicio, fin, S;
   float **M = NULL;
   float *V = NULL;  
@@ -92,15 +92,6 @@ double funcionWHILE(f, c){
   liberar(M);
   return (double) (S )/ CLOCKS_PER_SEC;
 }
-
-
-
-
-
-
-
-
-
 
 
 int main(){
