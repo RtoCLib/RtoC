@@ -51,7 +51,7 @@ void liberar(float **Matriz){
 }
 
 
-float funcionFOR(int f, int c){
+float funcionFOR(f, c){
   clock_t inicio, fin, S;
   float **M = NULL;
   float *V = NULL;  
@@ -94,24 +94,34 @@ double funcionWHILE(int f,int c){
 }
 
 
+
+
+
+
+
+
+
+
+
 int main(){
-  int i, j, iter_j = 15;
+  int i, j, iter_j = 1, k = 12;
   double PromedioFOR = 0, PromedioWHILE = 0, A, B;
   FILE *Archivo;
   Archivo = fopen("Promedios_C.csv", "w+");
   fprintf(Archivo, "%s,", "k");
   for (j = 0; j < iter_j; j++)
     fprintf(Archivo, "For_%d,While_%d,", i, i);
+
+  fprintf(Archivo, "%s,%s\n", "P_For", "P_While");
   
-  fprintf(Archivo, "%s,%s", "P_For", "P_While");
-  for (i = 1; i <= 12; i++)
+  for (i = 1; i <= k; i++)
   {
     fprintf(Archivo, "%d,", i);
     for (j = 0; j < iter_j; j++)
     {
       A = funcionFOR(pow(2,i),pow(2,i+1));
       B = funcionWHILE(pow(2,i),pow(2,i+1));
-      fprintf(Archivo, "%lf,%lf, ", A,  B);
+      fprintf(Archivo, "%lf,%lf,", A,  B);
       PromedioFOR = PromedioFOR + A;
       PromedioWHILE = PromedioWHILE + B;
     }
