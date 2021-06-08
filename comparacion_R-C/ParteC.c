@@ -104,7 +104,7 @@ double funcionWHILE(int f,int c){
 
 
 int main(){
-  int i, j, iter_j = 1, k = 12;
+  int i, j, iter_j = 15, k = 12;
   double PromedioFOR = 0, PromedioWHILE = 0, A, B;
   FILE *Archivo;
   Archivo = fopen("Promedios_C.csv", "w+");
