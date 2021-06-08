@@ -109,7 +109,7 @@ int main(){
   FILE *Archivo;
   Archivo = fopen("Promedios_C.csv", "w+");
   fprintf(Archivo, "%s,", "k");
-  for (i = 1; i <= 12; i++)
+  for (j = 0; j < iter_j; j++)
     fprintf(Archivo, "For_%d,While_%d,", i, i);
   
   fprintf(Archivo, "%s,%s", "P_For", "P_While");
