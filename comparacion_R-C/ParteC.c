@@ -8,7 +8,7 @@ int n = 2;
 int m = 2;
 float** generarMatriz(int Nmax, float **Matriz) {
   int i, j;
-  Matriz = (float **)malloc(n * sizeof(float*));
+  Matriz = (float **)malloc(n * sizeof(float*)); 
   for (i = 0; i < n; i++) {
     Matriz[i] = (float *)malloc(m * sizeof(float));
     for (j = 0; j < m; j++) {
@@ -20,7 +20,7 @@ float** generarMatriz(int Nmax, float **Matriz) {
 
 float* sumaColumnasFOR(float **Matriz,  float *Vector) {
   int i, j;
-  Vector = (float *)malloc(m * sizeof(float));
+  Vector = (float *)malloc(m * sizeof(float)); 
   for (i = 0; i < m; i++) {
     Vector[i] = 0;
     for (j = 0; j < n; j++) {
@@ -32,7 +32,7 @@ float* sumaColumnasFOR(float **Matriz,  float *Vector) {
 
 float* sumaColumnasWHILE(float **Matriz,  float *Vector) {
   int i = 0, j = 0;
-  Vector = (float *)malloc(m * sizeof(float));
+  Vector = (float *)malloc(m * sizeof(float)); 
   while (i < m) {
     Vector[i] = 0;
     while (j < n) {
@@ -51,10 +51,10 @@ void liberar(float **Matriz){
 }
 
 
-float funcionFOR(int f,int c){
+float funcionFOR(f, c){
   clock_t inicio, fin, S;
   float **M = NULL;
-  float *V = NULL;
+  float *V = NULL;  
 
   n = f;
   m = c;
@@ -73,10 +73,10 @@ float funcionFOR(int f,int c){
 
 
 
-double funcionWHILE(int f, int c){
+double funcionWHILE(f, c){
   clock_t inicio, fin, S;
   float **M = NULL;
-  float *V = NULL;
+  float *V = NULL;  
 
   n = f;
   m = c;
@@ -104,28 +104,36 @@ double funcionWHILE(int f, int c){
 
 
 int main(){
-  int i, j;
-  double PromedioFOR = 0, PromedioWHILE = 0;
-  FILE *out = fopen("C_out.csv", "w");
-    fprintf(out, "Promedio For, Promedio while\n");
+  int i, j, iter_j = 15;
+  double PromedioFOR = 0, PromedioWHILE = 0, A, B;
+  FILE *Archivo;
+  Archivo = fopen("Promedios_C.csv", "w+");
+  fprintf(Archivo, "%s,", "k");
+  for (i = 1; i <= 12; i++)
+    fprintf(Archivo, "For_%d,While_%d,", i, i);
+
   for (i = 1; i <= 12; i++)
   {
-    for (j = 0; j < 15; j++)
+    fprintf(Archivo, "%d,", i);
+    for (j = 0; j < iter_j; j++)
     {
-      PromedioFOR = PromedioFOR + funcionFOR(pow(2,i),pow(2,i+1));
-      PromedioWHILE = PromedioWHILE + funcionWHILE(pow(2,i),pow(2,i+1));
+      A = funcionFOR(pow(2,i),pow(2,i+1));
+      B = funcionWHILE(pow(2,i),pow(2,i+1));
+      fprintf(Archivo, "%lf,%lf, ", A,  B);
+      PromedioFOR = PromedioFOR + A;
+      PromedioWHILE = PromedioWHILE + B;
     }
-    PromedioFOR /= 15;
-    PromedioWHILE /= 15;
-    fprintf(out, "%f, %f\n", PromedioFOR, PromedioWHILE);
+    PromedioFOR /= iter_j;
+    PromedioWHILE /= iter_j;
+    fprintf(Archivo, "%lf,%lf\n",PromedioFOR,PromedioWHILE);
     PromedioFOR = 0;
     PromedioWHILE = 0;
   }
-  fclose(out);
+  puts("Completado");
   return 0;
 }
 
-/*
+/* 
 
 Promedio (for) iteracion   1: 0.000001
 Promedio (while) iteracion 1: 0.000001
