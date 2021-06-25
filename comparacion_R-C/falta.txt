@@ -1,0 +1,23 @@
+Definir:
+* Librerias (Listo)
+* signo igualdad (Listo)
+
+* variables (Pendiente separar terminos)
+* Arreglos 
+(Pendiente Pensar en como intercalar las comas y que no termine en coma diferenciar los tipos)
+pescar estos simbolos {}
+* ciclos:
+    -for
+    -while
+* Funciones:
+    - definicion de parametros
+    - cat
+    - matrix
+    - t
+    - length
+    - in
+    - ginv
+    - solve
+    - inv
+    - Sys.time()	
+    - apply

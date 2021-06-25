@@ -5,7 +5,8 @@
 
 TKSUBINDIZQ  \[
 TKSUBINDDER  \]
-ASIGNIZQ  “<-”=
+ASIGNIZQ  "<-"
+ASIGN "="
 PARENTASIGNIZQ  "<<-"
 ASIGNDER  "->"
 PARENTASIGNDER  "->>"
@@ -29,15 +30,25 @@ LOGANDEW  "&"
 LOGAND  "&&"
 LOGOREW  "|"
 LOGOR  "||"
-COMMENT  "#"
-STRING  [\^]*|[\^]*
-INTEGER  [0-9]+|[0-9]+["L"]
+COMMENT  "#".*?
+STRING  \".*\"
 DIGIT [0-9]
-OPERATIONCOMP  ["%"][^0-9^a-z^A-Z]["%"]
+CHARACTER [a-zA-Z]
+ULTRACHARACTER [a-zA-Z0-9]
+FLOAT {DIGIT}*\.{DIGIT}+
+FIRSTCHARACTER {CHARACTER}+{ULTRACHARACTER}*
+BLANK \b
+INTEGER  [0-9]+|[0-9]+["L"]
+/*OPERATIONCOMP  ["%"][^0-9^a-z^A-Z]["%"]*/
+OPERATIONCOMP "%".+"%"
+/*Cosas nueva*/
+/*ver esto:*/
+VALOR [{INTEGER}|{STRING}|{FLOAT}] 
+ARRAY "c( {VALOR}+ )"
+VAR {FIRSTCHARACTER}{BLANK}*{ASIGNIZQ}
 
-
+LIBRERIA "library("{CHARACTER}+")"
 %%
-
 {TKSUBINDIZQ} {printf(" TKSUBINDIZQ");}
                /*return TKSUBINDIZQ;*/
 {TKSUBINDDER} {printf(" TKSUBINDDER");}
@@ -90,17 +101,22 @@ OPERATIONCOMP  ["%"][^0-9^a-z^A-Z]["%"]
                /*return LOGOREW;*/
 {LOGOR} {printf(" LOGOR");}
                /*return LOGOR;*/
-{COMMENT} {printf(" COMMENT");}
+{COMMENT} {printf(" COMMENT");} /*ahora si toma todo el comentario*/
                /*return COMMENT;*/
-{STRING} {printf(" STRING");}
+{STRING} {printf(" STRING");} /*ahora si toma los string*/
                /*return STRING;*/
-{INTEGER} {printf(" INTEGER");}
+{INTEGER} {printf(" INTEGER");} /*modificado*/
                /*return INTEGER;*/
-[{DIGIT}+[.]{DIGIT}+]|[{DIGIT}*[.]{DIGIT}+] {printf(" FLOAT");}
+{FLOAT} {printf(" FLOAT");} /*ahora si toma los string*/
                /*return FLOAT;*/
-{OPERATIONCOMP} {printf("%s OPERATIONCOMP", yytext);}
+{OPERATIONCOMP} {printf("OPERATIONCOMP");} /*Modificado*/
                /*return OPERATIONCOMP;*/
+{ARRAY} {printf ("ARRAY");} /*preguntar formato: Array( elementos ) or only array*/
+        /*return ARRAY;*/
+{ASIGN} {printf("ASIGNACION");}
 
+{VAR} {printf("VAR");}
+{LIBRERIA} {printf("LIBRERIA");}
 %%
 
 int yywrap(void) {
