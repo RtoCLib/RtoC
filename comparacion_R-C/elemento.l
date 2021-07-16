@@ -5,6 +5,8 @@
 
 TKSUBINDIZQ  \[
 TKSUBINDDER  \]
+TKPARENTIZQ \(
+TKPARENTDER \)
 ASIGNIZQ  "<-"
 ASIGN "="
 PARENTASIGNIZQ  "<<-"
@@ -34,24 +36,24 @@ COMMENT  "#".*?
 STRING  \".*\"
 DIGIT [0-9]
 CHARACTER [a-zA-Z]
-ULTRACHARACTER [a-zA-Z0-9]
 FLOAT {DIGIT}*\.{DIGIT}+
-/*FIRSTCHARACTER {CHARACTER}+{ULTRACHARACTER}**/
-BLANK \b
 INTEGER  [0-9]+|[0-9]+["L"]
-/*OPERATIONCOMP  ["%"][^0-9^a-z^A-Z]["%"]*/
 OPERATIONCOMP "%".+"%"
 /*Cosas nueva*/
 /*ver esto:*/
-VALOR [{INTEGER}|{STRING}|{FLOAT}] 
-ARRAY "c( {VALOR}+ )"
+TKVALOR [{INTEGER}|{STRING}|{FLOAT}] 
+TKARRAY "c{TKPARENTIZQ}"
+TKCAT "cat"{TKPARENTIZQ}
 /*VAR {FIRSTCHARACTER}{BLANK}*{ASIGNIZQ}*/
 
-LIBRERIA "library"
+TKLIBRERIA "library"
+TKFUNCTION "function"
 %%
 {TKSUBINDIZQ} {printf(" TKSUBINDIZQ");}
                /*return TKSUBINDIZQ;*/
 {TKSUBINDDER} {printf(" TKSUBINDDER");}
+{TKPARENTIZQ} {printf(" TKPARENTIZQ");}
+{TKPARENTDER} {printf(" TKPARENTDER");}
                /*return TKSUBINDDER;*/
 {ASIGNIZQ} {printf(" ASIGNIZQ");}
                /*return ASIGNIZQ;*/
@@ -109,14 +111,15 @@ LIBRERIA "library"
                /*return INTEGER;*/
 {FLOAT} {printf(" FLOAT");} /*ahora si toma los string*/
                /*return FLOAT;*/
-{OPERATIONCOMP} {printf("OPERATIONCOMP");} /*Modificado*/
-               /*return OPERATIONCOMP;*/
-{ARRAY} {printf ("ARRAY");} /*preguntar formato: Array( elementos ) or only array*/
+{TKVALOR} {printf(" VALOR");}
+{TKARRAY} {printf ("ARRAY");} /*preguntar formato: Array( elementos ) or only array*/
         /*return ARRAY;*/
-{ASIGN} {printf("ASIGNACION");}
+{TKCAT} {printf (" CAT");} /*preguntar formato: Array( elementos ) or only array*/
+        /*return ARRAY;*/
 
-{VAR} {printf("VAR");}
-{LIBRERIA} {printf("LIBRERIA");}
+{TKLIBRERIA} {printf(" LIBRERIA");}
+{TKFUNCTION} {printf(" FUNCTION");}
+{CHARACTER}+[{DIGIT}|{CHARACTER}]* {printf(" VARIABLE");}
 %%
 
 int yywrap(void) {
