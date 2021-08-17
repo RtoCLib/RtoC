@@ -1,4 +1,12 @@
 Variable de inicio: S
 
-S -> a
- 
+S -> BINOP | UNARYOP | FUNC | DEF | VARDEF | TKCOMMENT | epsilón
+BINOP -> VAR BINOPS VAR S | NUMVAR NEG S | VAR OPCOMP VAR S
+BINOPS -> + | * | ** | ^ | / | %% |  %/%
+UNARYOP -> UNARYOPS VAR S
+UNARYOPS -> ! | NEG
+NEG -> - NUMVAR
+TKPARENTIZQ -> (
+TKPARENTDER -> )
+NUMVAR -> INTEGER | FLOAT
+

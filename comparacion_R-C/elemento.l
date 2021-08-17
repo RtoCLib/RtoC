@@ -2,18 +2,19 @@
 #include <stdio.h>
     /* Elementos léxicos en R */
 %}
-
+/* Agrupar operaciones binarias en un sólo token, así como las uniarias y operaciones lógicas*/
 TKSUBINDIZQ  \[
 TKSUBINDDER  \]
 TKPARENTIZQ \(
 TKPARENTDER \)
 ASIGNIZQ  "<-"
+ASIGNDER  "->"
 ASIGN "="
 PARENTASIGNIZQ  "<<-"
-ASIGNDER  "->"
 PARENTASIGNDER  "->>"
 TKRANGO  :
 TKCOMA  ,
+/*BINOP*/
 OPSUM  "+"
 OPSUBS  -
 OPMULT  \*
@@ -21,6 +22,7 @@ OPDIV  \/
 OPEXP  \^
 OPMOD  "%%"
 OPINTDIV  "%/%"
+/*LOGICOP*/
 LOGLESS  "<"
 LOGGREAT  ">"
 LOGLEQ  "<="
@@ -32,7 +34,10 @@ LOGANDEW  "&"
 LOGAND  "&&"
 LOGOREW  "|"
 LOGOR  "||"
-COMMENT  "#".*?
+/*Hasta aquí*/
+/*UNARYOP*/
+
+TKCOMMENT  "#".*?
 STRING  \".*\"
 DIGIT [0-9]
 CHARACTER [a-zA-Z]
@@ -44,8 +49,8 @@ OPERATIONCOMP "%".+"%"
 TKVALOR [{INTEGER}|{STRING}|{FLOAT}] 
 TKARRAY "c{TKPARENTIZQ}"
 TKCAT "cat"{TKPARENTIZQ}
-/*VAR {FIRSTCHARACTER}{BLANK}*{ASIGNIZQ}*/
 
+/*agregar nombres reservados desde:  https://www.statmethods.net/management/functions.html*/
 TKLIBRERIA "library"
 TKFUNCTION "function"
 %%
@@ -103,7 +108,7 @@ TKFUNCTION "function"
                /*return LOGOREW;*/
 {LOGOR} {printf(" LOGOR");}
                /*return LOGOR;*/
-{COMMENT} {printf(" COMMENT");} /*ahora si toma todo el comentario*/
+{TKCOMMENT} {printf(" TKCOMMENT");} /*ahora si toma todo el comentario*/
                /*return COMMENT;*/
 {STRING} {printf(" STRING");} /*ahora si toma los string*/
                /*return STRING;*/
