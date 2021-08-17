@@ -1,0 +1,4 @@
+Variable de inicio: S
+
+S -> a
+ 
