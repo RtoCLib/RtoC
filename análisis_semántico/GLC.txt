@@ -1,0 +1,8 @@
+E -> S
+S -> S + R | R
+R -> R - P | P
+P -> P * D | D
+D -> D / DP | DP
+DP -> DP %/% M | M
+M -> M %% T | T 
+T -> id | (E)  
