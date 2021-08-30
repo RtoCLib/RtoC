@@ -34,6 +34,7 @@ LOGANDEW  "&"
 LOGAND  "&&"
 LOGOREW  "|"
 LOGOR  "||"
+LOGNEG "!"
 /*Hasta aquí*/
 /*UNARYOP*/
 
