@@ -1,0 +1,14 @@
+E -> S
+S -> S'R | R
+S' -> S + S' | R
+R -> R'P | P
+R' -> R - R' | P
+P -> P'D | D
+P' -> P * P' | D
+D -> D'DP | DP
+D' -> D / D' | DP
+DP -> DP'M | M
+DP' -> DP %/% DP' | M
+M -> M'T | T 
+M' -> M %% M' | T
+T -> id | (E)  
