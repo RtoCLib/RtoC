@@ -6,7 +6,9 @@
 
 %union { char a; }
 
-%left S R P D DP M T id
+%left P D DP M
+%left S R 
+%left T id
 %left Sp Rp Pp Dp DPp Mp
 
 
