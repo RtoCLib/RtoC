@@ -59,8 +59,10 @@ TKFUNCTION "function"
 {TKSUBINDIZQ} {printf(" TKSUBINDIZQ");}
                /*return TKSUBINDIZQ;*/
 {TKSUBINDDER} {printf(" TKSUBINDDER");}
-{TKPARENTIZQ} {printf(" TKPARENTIZQ");}
-{TKPARENTDER} {printf(" TKPARENTDER");}
+{TKPARENTIZQ} {printf(" TKPARENTIZQ");
+                return PARIZQ;}
+{TKPARENTDER} {printf(" TKPARENTDER");
+                return PARDER;}
                /*return TKSUBINDDER;*/
 {ASIGNIZQ} {printf(" ASIGNIZQ");}
                /*return ASIGNIZQ;*/

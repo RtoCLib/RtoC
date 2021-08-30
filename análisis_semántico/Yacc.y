@@ -4,73 +4,73 @@
 // info en: https://www.ibm.com/docs/en/aix/7.1?topic=concepts-lex-yacc-program-information
 %start E
 
-%union { char a; }
+//%union { char a; }
 
+%left PARIZQ PARDER
 %left P D DP M
 %left S R 
-%left T id
-%left Sp Rp Pp Dp DPp Mp
+%left id
 
 
 %% 
-E   : S // E   : S
+E   : S {printf($1 \n);} // E   : S
     ;
-S   :  Sp R  // S   : S'R | R
-    | R
+Sum   :  Sp Rest  // S   : S'R | R
+    | Rest
     ;
-Sp  : S '+' Sp  // S'    : S + S' | R
+Sp  : Sum S Sp  // S'    : S + S' | R
     {
       $$ = $1 + $3
     }
     | R
     ;
-R   : Rp P    // R   : R'P | P
+Rest   : Rp Prod    // R   : R'P | P
     | P
     ;
-Rp  : R '-' Rp // R'    : R - R' | P
+Rp  : Rest R Rp // R'    : R - R' | P
     {
       $$ = $1 - $3
     }
     | P
     ;
-P   : Pp D  // P   : P'D | D
-    | D
+Prod   : Pp Div  // P   : P'D | D
+    | Div
     ;
-Pp  : P '*' Pp // P'    : P * P' | D
+Pp  : Prod P Pp // P'    : P * P' | D
     {
-      $$ = $1 '*' $3
+      $$ = $1 * $3
     }
-    | D
+    | Div
     ;
-D   : Dp DP  // D   : D'DP | DP
-    | DP
+Div   : Dp DivP  // D   : D'DP | DP
+    | DivP
     ;
-Dp  : D '/' Dp // D'    : D / D' | DP
+Dp  : Div D Dp // D'    : D / D' | DP
     {
       $$ = $1 / $3
     }
-    | DP
+    | DivP
     ;
-DP  : DPp M  // DP    : DP'M | M
-    | M
+DivP  : DPp Mod  // DP    : DP'M | M
+    | Mod
     ;
-DPp : DP '%' '/' '%' DPp //DP'   : DP %/% DP' | M
+DPp : DP M DPp //DP'   : DP %/% DP' | M
     {
-      $$ = ($1 - ($1 % $5) ) / $5  
+      $$ = ($1 - ($1 % $3) ) / $3  
     } 
-    | M
+    | Mod
     ;
-M   : Mp T // M   : M'T | T 
+Mod   : Mp T // M   : M'T | T 
     | T 
     ;
-Mp  : M '%' Mp //M'    : M %% M' | T
+Mp  : Mod M Mp //M'    : M %% M' | T
     {
       $$ = $1 % $3
     } 
     | T
     ;
 T   : id //T   : id | (E) 
-    | ( E )
+    | PARIZQ E PARDER
     ;
 
 %%
