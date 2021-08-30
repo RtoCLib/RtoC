@@ -77,19 +77,19 @@ TKFUNCTION "function"
 {TKCOMA} {printf(" TKCOMA");}
                /*return TKCOMA;*/
 {OPSUM} {printf(" OPSUM");
-               return S;}
+               return sum;}
 {OPSUBS} {printf(" OPSUBS");
                return R;}
 {OPMULT} {printf(" OPMULT");
                return P;}
 {OPDIV} {printf(" OPDIV");
                return D;}
-{OPEXP} {printf(" OPEXP");}
-               /*return OPEXP;*/
+{OPEXP} {printf(" OPEXP");
+               return EX;}
 {OPMOD} {printf(" OPMOD");
                return M;}
-{OPINTDIV} {printf(" OPINTDIV");}
-               /*return DP;*/
+{OPINTDIV} {printf(" OPINTDIV");
+               return DI;}
 {LOGLESS} {printf(" LOGLESS");}
                /*return LOGLESS;*/
 {LOGGREAT} {printf(" LOGGREAT");}
@@ -116,10 +116,10 @@ TKFUNCTION "function"
                /*return COMMENT;*/
 {STRING} {printf(" STRING");} /*ahora si toma los string*/
                /*return STRING;*/
-{INTEGER} {printf(" INTEGER");} /*modificado*/
-               /*return INTEGER;*/
-{FLOAT} {printf(" FLOAT");} /*ahora si toma los string*/
-               /*return FLOAT;*/
+{INTEGER} {printf(" INTEGER"); /*modificado*/
+               return INTEGER;}
+{FLOAT} {printf(" FLOAT"); /*ahora si toma los string*/
+               return FLOAT;}
 {TKVALOR} {printf(" VALOR");}
 {TKARRAY} {printf ("ARRAY"); /*preguntar formato: Array( elementos ) or only array*/
         /*return ARRAY;*/}
@@ -130,12 +130,3 @@ TKFUNCTION "function"
 {TKFUNCTION} {printf(" FUNCTION");}
 {CHARACTER}+[{DIGIT}|{CHARACTER}]* {printf(" VARIABLE");}
 %%
-
-int yywrap(void) {
-    return 1;
-}
-
-int main (int argc, char *argv[]){
-    yylex();
-    return 0;
-}

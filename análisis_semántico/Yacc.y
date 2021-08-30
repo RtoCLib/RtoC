@@ -4,88 +4,105 @@
 // info en: https://www.ibm.com/docs/en/aix/7.1?topic=concepts-lex-yacc-program-information
 %start E
 
-//%union { char a; }
-
-%left PARIZQ PARDER
-%left P D DP M
-%left S R 
-%left id
+//%token TKSUBINDER TKSUBNIZQASIGNIZQ ASIGNDER PARENTIGNDER TKRANG TKCOMA TKSUBNIZQ ASIGNI INTEGER FLOAT ARRAY LOGOR LOGLES LOGGRE LOGGEQ LOGLEQ LOGOREW LOGNOTEQ LOGAND LOGNOT COMMEN
+%token PARIZQ PARDER INTEGER FLOAT
+%token R sum
+%token P D M DI
+%token EX
 
 
 %% 
-E   : S {printf($1 \n);} // E   : S
-    ;
-Sum   :  Sp Rest  // S   : S'R | R
-    | Rest
-    ;
-Sp  : Sum S Sp  // S'    : S + S' | R
+E: 
+  |
+  E stat '\n'
+  |
+  E error '\n'
+  {
+    yyerrok;
+  }
+  ;
+
+stat: Sim
+      {
+        printf("%d\n",$1);
+      }
+      ;
+
+Sim: PARIZQ Sim PARDER
     {
-      $$ = $1 + $3
+      $$ = $2;
     }
-    | R
-    ;
-Rest   : Rp Prod    // R   : R'P | P
-    | P
-    ;
-Rp  : Rest R Rp // R'    : R - R' | P
+    |
+    Sim EX Sim
     {
-      $$ = $1 - $3
+      float pow = 1;
+      for(int i = 0; i < $3; i++)
+        pow = $1;
+      $$ = pow;
     }
-    | P
-    ;
-Prod   : Pp Div  // P   : P'D | D
-    | Div
-    ;
-Pp  : Prod P Pp // P'    : P * P' | D
+    |
+    Sim P Sim
     {
-      $$ = $1 * $3
+      $$ = $1 * $3;
     }
-    | Div
-    ;
-Div   : Dp DivP  // D   : D'DP | DP
-    | DivP
-    ;
-Dp  : Div D Dp // D'    : D / D' | DP
+    |
+    Sim D Sim
     {
-      $$ = $1 / $3
+      $$ = $1 / $3;
     }
-    | DivP
-    ;
-DivP  : DPp Mod  // DP    : DP'M | M
-    | Mod
-    ;
-DPp : DP M DPp //DP'   : DP %/% DP' | M
+    |
+    Sim DI Sim
     {
-      $$ = ($1 - ($1 % $3) ) / $3  
+      $$ = ($1 - ($1 % $3) ) / $3;  
+    }
+    |
+    Sim M Sim 
+    {
+      $$ = $1 % $3;
     } 
-    | Mod
-    ;
-Mod   : Mp T // M   : M'T | T 
-    | T 
-    ;
-Mp  : Mod M Mp //M'    : M %% M' | T
+    |
+    Sim sum Sim
     {
-      $$ = $1 % $3
-    } 
-    | T
+      $$ = $1 + $3;
+    }
+    |
+    Sim R Sim
+    {
+      $$ = $1 - $3;
+    }
+    |   
+    R Sim
+    {
+      $$ = - $2;
+    }
+    |
+    num
     ;
-T   : id //T   : id | (E) 
-    | PARIZQ E PARDER
+num:
+    FLOAT
+    {
+      $$ = $1;
+    }
+    |
+    INTEGER
+    {
+      $$ = $1;
+    }
     ;
 
 %%
-main()
-{
- return(yyparse());
+
+
+int yywrap(void) {
+    return 1;
 }
 
-yyerror(s)
+int yyerror(s)
 char *s;
 {
   fprintf(stderr, "%s\n",s);
 }
 
-yywrap()
-{
-  return(1);
+int main (int argc, char *argv[]){
+    return (yyparse());
 }
