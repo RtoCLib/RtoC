@@ -10,6 +10,10 @@
 %token P D M DI
 %token EX
 
+%type <type> stat
+%type <type> Sim
+%type <type> num
+
 
 %% 
 E: 
@@ -24,7 +28,7 @@ E:
 
 stat: Sim
       {
-        printf("%d\n",$1.type);
+        printf("%ld\n",$1.type);
       }
       ;
 
@@ -81,12 +85,12 @@ Sim: PARIZQ Sim PARDER
 num:
     FLOAT
     {
-      $$.type = $1.type;
+      $$ = float($1.type);
     }
     |
     INTEGER
     {
-      $$.type = $1.type;
+      $$ = int($1.type);
     }
     ;
 
