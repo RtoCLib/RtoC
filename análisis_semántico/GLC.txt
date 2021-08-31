@@ -18,25 +18,25 @@ Tabla de análisis sintáctico:
 
 FIRST():
 
-FISRT(E) = FISRT(S) = FISRT(R) = FISRT(P) = FISRT(D) = FISRT(DP) = FISRT(M) = FISRT(T) = {id, (}
-FISRT(S') = FISRT(S) = {id, (}
-FISRT(R') = FISRT(R) = {id, (}
-FISRT(P') = FISRT(P) = {id, (}
-FISRT(D') = FISRT(D) = {id, (}
-FISRT(DP') = FISRT(DP) = {id, (}
-FISRT(M') = FISRT(M) = {id, (}
+FISRT(E) C FISRT(S) C FISRT(R) C FISRT(P) C FISRT(D) C FISRT(DP) C FISRT(M) C FISRT(T) = {id, (}
+FISRT(S') C FISRT(S) = {id, (}
+FISRT(R') C FISRT(R) = {id, (}
+FISRT(P') C FISRT(P) = {id, (}
+FISRT(D') C FISRT(D) = {id, (}
+FISRT(DP') C FISRT(DP) = {id, (}
+FISRT(M') C FISRT(M) = {id, (}
 
 
 FOLLOW():
 
-FOLLOW(E) = FOLLOW(S) U {$} = FOLLOW(R) U {$} = FOLLOW(P) U {$} = FOLLOW(D) U {$} = FOLLOW(DP) U {$} = FOLLOW(M) U {$} = FOLLOW(T) U {$} = FIRST()) U {$} = {), $}
-FOLLOW(S) = FOLLOW(R) = FOLLOW(P) = FOLLOW(D) = FOLLOW(DP) = FOLLOW(M) = FOLLOW(T) = FIRST()) = {)}
-FOLLOW(S') = FISRT(S') U {+} = {id, (, +}
-FOLLOW(R') = FISRT(R') U {-} = {id, (, -}
-FOLLOW(P') = FISRT(P') U {*} = {id, (, *}
-FOLLOW(D') = FISRT(D') U {/} = {id, (, /}
-FOLLOW(DP') = FISRT(DP') U {%/%} = {id, (, %/%}
-FOLLOW(M') = FISRT(M') U {%%} = {id, (, %%}
+FOLLOW(E) C FOLLOW(S) U {$} C FOLLOW(R) U {$} C FOLLOW(P) U {$} C FOLLOW(D) U {$} C FOLLOW(DP) U {$} C FOLLOW(M) U {$} C FOLLOW(T) U {$} C FIRST(E)) U {$} = {), $}
+FOLLOW(S) C FOLLOW(R) C FOLLOW(P) C FOLLOW(D) C FOLLOW(DP) C FOLLOW(M) C FOLLOW(T) C FIRST()) = {)}
+FOLLOW(S') C FISRT(S') U {+} = {id, (, +}
+FOLLOW(R') C FISRT(R') U {-} = {id, (, -}
+FOLLOW(P') C FISRT(P') U {*} = {id, (, *}
+FOLLOW(D') C FISRT(D') U {/} = {id, (, /}
+FOLLOW(DP') C FISRT(DP') U {%/%} = {id, (, %/%}
+FOLLOW(M') C FISRT(M') U {%%} = {id, (, %%}
 
 
 TAS:
