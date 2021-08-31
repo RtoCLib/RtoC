@@ -12,3 +12,94 @@ DP' -> DP %/% DP' | M
 M -> M'T | T 
 M' -> M %% M' | T
 T -> id | (E)  
+
+
+Tabla de análisis sintáctico:
+
+FIRST():
+
+FISRT(E) = FISRT(S) = FISRT(R) = FISRT(P) = FISRT(D) = FISRT(DP) = FISRT(M) = FISRT(T) = {id, (}
+FISRT(S') = FISRT(S) = {id, (}
+FISRT(R') = FISRT(R) = {id, (}
+FISRT(P') = FISRT(P) = {id, (}
+FISRT(D') = FISRT(D) = {id, (}
+FISRT(DP') = FISRT(DP) = {id, (}
+FISRT(M') = FISRT(M) = {id, (}
+
+
+FOLLOW():
+
+FOLLOW(E) = FOLLOW(S) U {$} = FOLLOW(R) U {$} = FOLLOW(P) U {$} = FOLLOW(D) U {$} = FOLLOW(DP) U {$} = FOLLOW(M) U {$} = FOLLOW(T) U {$} = FIRST()) U {$} = {), $}
+FOLLOW(S) = FOLLOW(R) = FOLLOW(P) = FOLLOW(D) = FOLLOW(DP) = FOLLOW(M) = FOLLOW(T) = FIRST()) = {)}
+FOLLOW(S') = FISRT(S') U {+} = {id, (, +}
+FOLLOW(R') = FISRT(R') U {-} = {id, (, -}
+FOLLOW(P') = FISRT(P') U {*} = {id, (, *}
+FOLLOW(D') = FISRT(D') U {/} = {id, (, /}
+FOLLOW(DP') = FISRT(DP') U {%/%} = {id, (, %/%}
+FOLLOW(M') = FISRT(M') U {%%} = {id, (, %%}
+
+
+TAS:
+
+Se agrega M[E, id] E-> S (1)
+Se agrega M[E, (] E-> S (1)
+Se agrega M[S, id] E-> S (1)
+Se agrega M[S, (] E-> S (1)
+Se agrega M[S', id] E-> S (1)
+Se agrega M[S', (] E-> S (1)
+Se agrega M[R, id] E-> S (1)
+Se agrega M[R, (] E-> S (1)
+Se agrega M[R', id] E-> S (1)
+Se agrega M[R', (] E-> S (1)
+Se agrega M[P, id] E-> S (1)
+Se agrega M[P, (] E-> S (1)
+Se agrega M[P', id] E-> S (1)
+Se agrega M[P', (] E-> S (1)
+Se agrega M[D, id] E-> S (1)
+Se agrega M[D, (] E-> S (1)
+Se agrega M[D', id] E-> S (1)
+Se agrega M[D', (] E-> S (1)
+Se agrega M[DP, id] E-> S (1)
+Se agrega M[DP, (] E-> S (1)
+Se agrega M[DP', id] E-> S (1)
+Se agrega M[DP', (] E-> S (1)
+Se agrega M[M, id] E-> S (1)
+Se agrega M[M, (] E-> S (1)
+Se agrega M[M', id] E-> S (1)
+Se agrega M[M', (] E-> S (1)
+Se agrega M[T, id] E-> S (1)
+Se agrega M[T, (] E-> S (1)
+
+Dado que, no hay composición tal que VARIABLE-> espilon, entonces, no hay ingresos a la tabla desde los valores de FOLLOW().
+
+
+    id      | +     | -     | *     | /     | %/%       | %%        | (     | )     |
+    ________________________________________________________________________________
+E  | E-> S  |                                                       | E-> S |
+   |________________________________________________________________________________|
+S  | E-> S  |                                                       | E-> S |
+   |________________________________________________________________________________|
+S' | E-> S  |                                                       | E-> S |
+   |________________________________________________________________________________|
+R  | E-> S  |                                                       | E-> S |
+   |________________________________________________________________________________|
+R' | E-> S  |                                                       | E-> S |
+   |________________________________________________________________________________|
+P  | E-> S  |                                                       | E-> S |
+   |________________________________________________________________________________|
+P' | E-> S  |                                                       | E-> S |
+   |________________________________________________________________________________|
+D  | E-> S  |                                                       | E-> S |
+   |________________________________________________________________________________|
+D' | E-> S  |                                                       | E-> S |
+   |________________________________________________________________________________|
+DP | E-> S  |                                                       | E-> S |
+   |________________________________________________________________________________|
+DP'| E-> S  |                                                       | E-> S |
+   |________________________________________________________________________________|
+M  | E-> S  |                                                       | E-> S |
+   |________________________________________________________________________________|
+M' | E-> S  |                                                       | E-> S |
+   |________________________________________________________________________________|
+T  | E-> S  |                                                       | E-> S |
+   |________________________________________________________________________________|
