@@ -130,6 +130,7 @@ TKFUNCTION "function"
 {TKFUNCTION} {printf(" FUNCTION");}
 {CHARACTER}+[{DIGIT}|{CHARACTER}]* {printf(" VARIABLE");}
 %%
+/*
 int yywrap () {
   
     return 1;
@@ -139,4 +140,4 @@ int main(){
     yylex();
     return 0;
 
-}
+}*/

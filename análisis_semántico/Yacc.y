@@ -3,7 +3,7 @@
 %}
 // info en: https://www.ibm.com/docs/en/aix/7.1?topic=concepts-lex-yacc-program-information
 %start E
-
+%union {double type;}
 //%token TKSUBINDER TKSUBNIZQASIGNIZQ ASIGNDER PARENTIGNDER TKRANG TKCOMA TKSUBNIZQ ASIGNI INTEGER FLOAT ARRAY LOGOR LOGLES LOGGRE LOGGEQ LOGLEQ LOGOREW LOGNOTEQ LOGAND LOGNOT COMMEN
 %token PARIZQ PARDER INTEGER FLOAT
 %token R sum
@@ -24,13 +24,13 @@ E:
 
 stat: Sim
       {
-        printf("%d\n",$1);
+        printf("%d\n",$1.type);
       }
       ;
 
 Sim: PARIZQ Sim PARDER
     {
-      $$ = $2;
+      $$.type = $2.type;
     }
     |
     Sim EX Sim
@@ -38,42 +38,42 @@ Sim: PARIZQ Sim PARDER
       float pow = 1;
       for(int i = 0; i < $3; i++)
         pow = $1;
-      $$ = pow;
+      $$.type = pow;
     }
     |
     Sim P Sim
     {
-      $$ = $1 * $3;
+      $$.type = $1.type * $3.type;
     }
     |
     Sim D Sim
     {
-      $$ = $1 / $3;
+      $$.type = $1.type / $3.type;
     }
     |
     Sim DI Sim
     {
-      $$ = ($1 - ($1 % $3) ) / $3;  
+      $$.type = ($1.type - ($1.type % $3.type) ) / $3.type;  
     }
     |
     Sim M Sim 
     {
-      $$ = $1 % $3;
+      $$.type = $1.type % $3.type;
     } 
     |
     Sim sum Sim
     {
-      $$ = $1 + $3;
+      $$.type = $1.type + $3.type;
     }
     |
     Sim R Sim
     {
-      $$ = $1 - $3;
+      $$.type = $1.type - $3.type;
     }
     |   
     R Sim
     {
-      $$ = - $2;
+      $$.type = - $2.type;
     }
     |
     num
@@ -81,12 +81,12 @@ Sim: PARIZQ Sim PARDER
 num:
     FLOAT
     {
-      $$ = $1;
+      $$.type = $1.type;
     }
     |
     INTEGER
     {
-      $$ = $1;
+      $$.type = $1.type;
     }
     ;
 
