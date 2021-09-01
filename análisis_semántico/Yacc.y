@@ -1,99 +1,57 @@
 %{
 #include<stdio.h>
 %}
-// info en: https://www.ibm.com/docs/en/aix/7.1?topic=concepts-lex-yacc-program-information
-%start E
-%union {double type;}
-//%token TKSUBINDER TKSUBNIZQASIGNIZQ ASIGNDER PARENTIGNDER TKRANG TKCOMA TKSUBNIZQ ASIGNI INTEGER FLOAT ARRAY LOGOR LOGLES LOGGRE LOGGEQ LOGLEQ LOGOREW LOGNOTEQ LOGAND LOGNOT COMMEN
-%token PARIZQ PARDER INTEGER FLOAT
-%token R sum
-%token P D M DI
-%token EX
+%start Estart
+%left VARIABLE TKSUBINDIZQ TKSUBINDDER TKPARENTIZ TKPARENTDE ASIGNIZQ ASIGNDER ASIGN PARENTASIGNIZQ PARENTASIGNDER TKRANGO TKCOMA 
+%left OPSUM OPSUBS OPMULT OPDIV OPEXP OPMOD OPINTDIV
+%left TKCOMMENT STRING DIGIT CHARACTER FLOAT INTEGER OPERATIONCOMP 
+%left TKVALOR TKARRAY TKCAT TKFUNCTION TKLIBRERIA
+%left R S P D DI M EX 
 
-%type <type> stat
-%type <type> Sim
-%type <type> num
+%%
+Estart:     stat
+            {
+              yyerrok;
+            }
+            ;
+stat:       VARIABLE Asignacion result
+            ;
 
+Asignacion: ASIGN
+            |
+            ASIGNIZQ
+            ;
+  
 
-%% 
-E: 
-  |
-  E stat '\n'
-  |
-  E error '\n'
-  {
-    yyerrok;
-  }
-  ;
+          
+result:     INTEGER op INTEGER
+            |
+            R INTEGER
+            |
+            INTEGER
+            |
+            FLOAT op FLOAT
+            |
+            R FLOAT
+            |
+            FLOAT
+            ;
 
-stat: Sim
-      {
-        printf("%ld\n",$1.type);
-      }
-      ;
-
-Sim: PARIZQ Sim PARDER
-    {
-      $$.type = $2.type;
-    }
-    |
-    Sim EX Sim
-    {
-      float pow = 1;
-      for(int i = 0; i < $3; i++)
-        pow = $1;
-      $$.type = pow;
-    }
-    |
-    Sim P Sim
-    {
-      $$.type = $1.type * $3.type;
-    }
-    |
-    Sim D Sim
-    {
-      $$.type = $1.type / $3.type;
-    }
-    |
-    Sim DI Sim
-    {
-      $$.type = ($1.type - ($1.type % $3.type) ) / $3.type;  
-    }
-    |
-    Sim M Sim 
-    {
-      $$.type = $1.type % $3.type;
-    } 
-    |
-    Sim sum Sim
-    {
-      $$.type = $1.type + $3.type;
-    }
-    |
-    Sim R Sim
-    {
-      $$.type = $1.type - $3.type;
-    }
-    |   
-    R Sim
-    {
-      $$.type = - $2.type;
-    }
-    |
-    num
-    ;
-num:
-    FLOAT
-    {
-      $$ = float($1.type);
-    }
-    |
-    INTEGER
-    {
-      $$ = int($1.type);
-    }
-    ;
-
+op:         R
+            |
+            S
+            |
+            P
+            |
+            D
+            |
+            DI
+            |
+            M
+            |
+            EX
+            |
+            ;
 %%
 
 
