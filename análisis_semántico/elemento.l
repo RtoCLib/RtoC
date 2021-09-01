@@ -17,7 +17,7 @@ TKRANGO  :
 TKCOMA  ,
 /*BINOP*/
 OPSUM  "+"
-OPSUBS  -
+OPSUBS  "-"
 OPMULT  \*
 OPDIV  \/
 OPEXP  \^
@@ -60,24 +60,26 @@ TKFUNCTION "function"
                /*return TKSUBINDIZQ;*/
 {TKSUBINDDER} {printf(" TKSUBINDDER");}
 {TKPARENTIZQ} {printf(" TKPARENTIZQ");
-                return PARIZQ;}
+                return TKPARENTIZ;}
 {TKPARENTDER} {printf(" TKPARENTDER");
-                return PARDER;}
+                return TKPARENTDE;}
                /*return TKSUBINDDER;*/
-{ASIGNIZQ} {printf(" ASIGNIZQ");}
-               /*return ASIGNIZQ;*/
-{PARENTASIGNIZQ} {printf(" PARENTASIGNIZQ");}
-               /*return PARENTASIGNIZQ;*/
-{ASIGNDER} {printf(" ASIGNDER");}
-               /*return ASIGNDER;*/
-{PARENTASIGNDER} {printf(" PARENTASIGNDER");}
-               /*return PARENTASIGNDER;*/
-{TKRANGO} {printf(" TKRANGO");}
-               /*return TKRANGO;*/
-{TKCOMA} {printf(" TKCOMA");}
-               /*return TKCOMA;*/
+{ASIGNIZQ} {printf(" ASIGNIZQ");
+               return ASIGNIZQ;}
+{PARENTASIGNIZQ} {printf(" PARENTASIGNIZQ");
+               return PARENTASIGNIZQ;}
+{ASIGNDER} {printf(" ASIGNDER");
+               return ASIGNDER;}
+{ASIGN}  {printf(" ASIGN");
+               return ASIGN;}
+{PARENTASIGNDER} {printf(" PARENTASIGNDER");
+                return PARENTASIGNDER;}
+{TKRANGO} {printf(" TKRANGO");
+               return TKRANGO;}
+{TKCOMA} {printf(" TKCOMA");
+                return TKCOMA;}
 {OPSUM} {printf(" OPSUM");
-               return sum;}
+               return S;}
 {OPSUBS} {printf(" OPSUBS");
                return R;}
 {OPMULT} {printf(" OPMULT");
@@ -90,45 +92,25 @@ TKFUNCTION "function"
                return M;}
 {OPINTDIV} {printf(" OPINTDIV");
                return DI;}
-{LOGLESS} {printf(" LOGLESS");}
-               /*return LOGLESS;*/
-{LOGGREAT} {printf(" LOGGREAT");}
-               /*return LOGGREAT;*/
-{LOGLEQ} {printf(" LOGLEQ");}
-               /*return LOGLEQ;*/
-{LOGGEQ} {printf(" LOGGEQ");}
-               /*return LOGGEQ;*/
-{LOGEQ} {printf(" LOGEQ");}
-               /*return LOGEQ;*/
-{LOGNOTEQ} {printf(" LOGNOTEQ");}
-               /*return LOGNOTEQ;*/
-{LOGNOT} {printf(" LOGNOT");}
-               /*return LOGNOT;*/
-{LOGANDEW} {printf(" LOGANDEW");}
-               /*return LOGANDEW;*/
-{LOGAND} {printf(" LOGAND");}
-               /*return LOGAND;*/
-{LOGOREW} {printf(" LOGOREW");}
-               /*return LOGOREW;*/
-{LOGOR} {printf(" LOGOR");}
-               /*return LOGOR;*/
-{TKCOMMENT} {printf(" TKCOMMENT");} /*ahora si toma todo el comentario*/
-               /*return COMMENT;*/
-{STRING} {printf(" STRING");} /*ahora si toma los string*/
-               /*return STRING;*/
-{INTEGER} {printf(" INTEGER"); /*modificado*/
-               return INTEGER;}
-{FLOAT} {printf(" FLOAT"); /*ahora si toma los string*/
-               return FLOAT;}
-{TKVALOR} {printf(" VALOR");}
-{TKARRAY} {printf ("ARRAY"); /*preguntar formato: Array( elementos ) or only array*/
-        /*return ARRAY;*/}
-{TKCAT} {printf (" CAT");} /*preguntar formato: Array( elementos ) or only array*/
-        /*return ARRAY;*/
 
-{TKLIBRERIA} {printf(" LIBRERIA");}
-{TKFUNCTION} {printf(" FUNCTION");}
-{CHARACTER}+[{DIGIT}|{CHARACTER}]* {printf(" VARIABLE");}
+{TKCOMMENT} {printf(" TKCOMMENT"); 
+               return TKCOMMENT;}/*ahora si toma todo el comentario*/
+{STRING} {printf(" STRING");
+               return STRING;}/*ahora si toma los string*/
+{INTEGER} {printf(" INTEGER"); 
+               return INTEGER;}/*modificado*/
+{FLOAT} {printf(" FLOAT");
+               return FLOAT;} /*ahora si toma los string*/
+{TKVALOR} {printf(" VALOR");
+            return TKVALOR;}
+{TKARRAY} {printf ("ARRAY");
+        return TKARRAY;} /*preguntar formato: Array( elementos ) or only array*/
+{TKCAT} {printf (" CAT"); 
+        return TKCAT;}/*preguntar formato: Array( elementos ) or only array*/
+
+{TKLIBRERIA} {printf(" LIBRERIA"); return TKLIBRERIA;}
+{TKFUNCTION} {printf(" FUNCTION"); return TKFUNCTION;}
+{CHARACTER}+[{DIGIT}|{CHARACTER}]* {printf(" VARIABLE"); return VARIABLE;}
 %%
 /*
 int yywrap () {
@@ -141,3 +123,26 @@ int main(){
     return 0;
 
 }*/
+/* dan error tenerlos :C
+{LOGLESS} {printf(" LOGLESS");
+               return LOGLESS;}
+{LOGGREAT} {printf(" LOGGREAT");
+               return LOGGREAT;}
+{LOGLEQ} {printf(" LOGLEQ");
+               return LOGLEQ;}
+{LOGGEQ} {printf(" LOGGEQ");
+               return LOGGEQ;}
+{LOGEQ} {printf(" LOGEQ");
+               return LOGEQ;}
+{LOGNOTEQ} {printf(" LOGNOTEQ");
+               return LOGNOTEQ;}
+{LOGNOT} {printf(" LOGNOT");
+               return LOGNOT;}
+{LOGANDEW} {printf(" LOGANDEW");
+                return LOGANDEW;}
+{LOGAND} {printf(" LOGAND");
+               return LOGAND;}
+{LOGOREW} {printf(" LOGOREW");
+               return LOGOREW;}
+{LOGOR} {printf(" LOGOR");
+               return LOGOR;}*/
