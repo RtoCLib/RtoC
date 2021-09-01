@@ -51,7 +51,7 @@ OPERATIONCOMP "%".+"%"
 TKVALOR [{INTEGER}|{STRING}|{FLOAT}] 
 TKARRAY "c{TKPARENTIZQ}"
 TKCAT "cat"{TKPARENTIZQ}
-
+VARIABLE {CHARACTER}+[{DIGIT}|{CHARACTER}]*
 /*agregar nombres reservados desde:  https://www.statmethods.net/management/functions.html*/
 TKLIBRERIA "library"
 TKFUNCTION "function"
@@ -60,24 +60,46 @@ TKFUNCTION "function"
                /*return TKSUBINDIZQ;*/
 {TKSUBINDDER} {printf(" TKSUBINDDER");}
 {TKPARENTIZQ} {printf(" TKPARENTIZQ");
-                return TKPARENTIZ;}
+                return PARIZQ;}
 {TKPARENTDER} {printf(" TKPARENTDER");
-                return TKPARENTDE;}
+                return PARDER;}
                /*return TKSUBINDDER;*/
+{LOGLESS} {printf(" LOGLESS");
+               }//return LOGLESS;}
+{LOGGREAT} {printf(" LOGGREAT");
+               }//return LOGGREAT;}
+{LOGLEQ} {printf(" LOGLEQ");
+               }//return LOGLEQ;}
+{LOGGEQ} {printf(" LOGGEQ");
+               }//return LOGGEQ;}
+{LOGEQ} {printf(" LOGEQ");
+               }//return LOGEQ;}
+{LOGNOTEQ} {printf(" LOGNOTEQ");
+               }//return LOGNOTEQ;}
+{LOGNOT} {printf(" LOGNOT");
+               }//return LOGNOT;}
+{LOGANDEW} {printf(" LOGANDEW");
+                }//return LOGANDEW;}
+{LOGAND} {printf(" LOGAND");
+               }//return LOGAND;}
+{LOGOREW} {printf(" LOGOREW");
+               }//return LOGOREW;}
+{LOGOR} {printf(" LOGOR");
+               }//return LOGOR;}
 {ASIGNIZQ} {printf(" ASIGNIZQ");
-               return ASIGNIZQ;}
+               }//return ASIGNIZQ;}
 {PARENTASIGNIZQ} {printf(" PARENTASIGNIZQ");
-               return PARENTASIGNIZQ;}
+               }//return PARENTASIGNIZQ;}
 {ASIGNDER} {printf(" ASIGNDER");
-               return ASIGNDER;}
+               }//return ASIGNDER;}
 {ASIGN}  {printf(" ASIGN");
-               return ASIGN;}
+               }//return ASIGN;}
 {PARENTASIGNDER} {printf(" PARENTASIGNDER");
-                return PARENTASIGNDER;}
+                }//return PARENTASIGNDER;}
 {TKRANGO} {printf(" TKRANGO");
-               return TKRANGO;}
+               }//return TKRANGO;}
 {TKCOMA} {printf(" TKCOMA");
-                return TKCOMA;}
+                }//return TKCOMA;}
 {OPSUM} {printf(" OPSUM");
                return S;}
 {OPSUBS} {printf(" OPSUBS");
@@ -87,30 +109,30 @@ TKFUNCTION "function"
 {OPDIV} {printf(" OPDIV");
                return D;}
 {OPEXP} {printf(" OPEXP");
-               return EX;}
+               }//return OPEXP;}
 {OPMOD} {printf(" OPMOD");
                return M;}
 {OPINTDIV} {printf(" OPINTDIV");
                return DI;}
 
 {TKCOMMENT} {printf(" TKCOMMENT"); 
-               return TKCOMMENT;}/*ahora si toma todo el comentario*/
+               }//return TKCOMMENT;}/*ahora si toma todo el comentario*/
 {STRING} {printf(" STRING");
-               return STRING;}/*ahora si toma los string*/
+               }//return STRING;}/*ahora si toma los string*/
 {INTEGER} {printf(" INTEGER"); 
                return INTEGER;}/*modificado*/
 {FLOAT} {printf(" FLOAT");
-               return FLOAT;} /*ahora si toma los string*/
+               return FLOAT;} /*ahora si toma los string
 {TKVALOR} {printf(" VALOR");
-            return TKVALOR;}
+            }//return TKVALOR;}   */
 {TKARRAY} {printf ("ARRAY");
-        return TKARRAY;} /*preguntar formato: Array( elementos ) or only array*/
+        }//return TKARRAY;} /*preguntar formato: Array( elementos ) or only array*/
 {TKCAT} {printf (" CAT"); 
-        return TKCAT;}/*preguntar formato: Array( elementos ) or only array*/
+        }//return TKCAT;}/*preguntar formato: Array( elementos ) or only array*/
 
-{TKLIBRERIA} {printf(" LIBRERIA"); return TKLIBRERIA;}
-{TKFUNCTION} {printf(" FUNCTION"); return TKFUNCTION;}
-{CHARACTER}+[{DIGIT}|{CHARACTER}]* {printf(" VARIABLE"); return VARIABLE;}
+{TKLIBRERIA} {printf(" LIBRERIA"); }//return TKLIBRERIA;}
+{TKFUNCTION} {printf(" FUNCTION"); }//return TKFUNCTION;}
+{VARIABLE} {printf(" VARIABLE"); return VARIABLE;}
 %%
 /*
 int yywrap () {
@@ -123,26 +145,3 @@ int main(){
     return 0;
 
 }*/
-/* dan error tenerlos :C
-{LOGLESS} {printf(" LOGLESS");
-               return LOGLESS;}
-{LOGGREAT} {printf(" LOGGREAT");
-               return LOGGREAT;}
-{LOGLEQ} {printf(" LOGLEQ");
-               return LOGLEQ;}
-{LOGGEQ} {printf(" LOGGEQ");
-               return LOGGEQ;}
-{LOGEQ} {printf(" LOGEQ");
-               return LOGEQ;}
-{LOGNOTEQ} {printf(" LOGNOTEQ");
-               return LOGNOTEQ;}
-{LOGNOT} {printf(" LOGNOT");
-               return LOGNOT;}
-{LOGANDEW} {printf(" LOGANDEW");
-                return LOGANDEW;}
-{LOGAND} {printf(" LOGAND");
-               return LOGAND;}
-{LOGOREW} {printf(" LOGOREW");
-               return LOGOREW;}
-{LOGOR} {printf(" LOGOR");
-               return LOGOR;}*/
