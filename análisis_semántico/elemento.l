@@ -4,17 +4,10 @@
     /* Elementos léxicos en R */
 %}
 /* Agrupar operaciones binarias en un sólo token, así como las uniarias y operaciones lógicas*/
-TKSUBINDIZQ  \[
-TKSUBINDDER  \]
 TKPARENTIZQ \(
 TKPARENTDER \)
-ASIGNIZQ  "<-"
-ASIGNDER  "->"
-ASIGN "="
-PARENTASIGNIZQ  "<<-"
-PARENTASIGNDER  "->>"
-TKRANGO  :
-TKCOMA  ,
+/*ASIGNIZQ  "<-"*/
+/*ASIGN "="*/
 /*BINOP*/
 OPSUM  "+"
 OPSUBS  "-"
@@ -30,7 +23,6 @@ LOGLEQ  "<="
 LOGGEQ  ">="
 LOGEQ  "=="
 LOGNOTEQ  "!="
-LOGNOT  "!"
 LOGANDEW  "&"
 LOGAND  "&&"
 LOGOREW  "|"
@@ -39,67 +31,46 @@ LOGNEG "!"
 /*Hasta aquí*/
 /*UNARYOP*/
 
-TKCOMMENT  "#".*?
-STRING  \".*\"
+/*TKCOMMENT  "#".*? */
+/*STRING  \".*\" */
 DIGIT [0-9]
-CHARACTER [a-zA-Z]
+/*CHARACTER [a-zA-Z] */
 FLOAT {DIGIT}*\.{DIGIT}+
 INTEGER  [0-9]+|[0-9]+["L"]
-OPERATIONCOMP "%".+"%"
+TRUE "TRUE"
+FALSE "FALSE"
 /*Cosas nueva*/
 /*ver esto:*/
-TKVALOR [{INTEGER}|{STRING}|{FLOAT}] 
-TKARRAY "c{TKPARENTIZQ}"
-TKCAT "cat"{TKPARENTIZQ}
-VARIABLE {CHARACTER}+[{DIGIT}|{CHARACTER}]*
-/*agregar nombres reservados desde:  https://www.statmethods.net/management/functions.html*/
-TKLIBRERIA "library"
-TKFUNCTION "function"
+/*VARIABLE {CHARACTER}+[{DIGIT}|{CHARACTER}]* */
 %%
-{TKSUBINDIZQ} {printf(" TKSUBINDIZQ");}
-               /*return TKSUBINDIZQ;*/
-{TKSUBINDDER} {printf(" TKSUBINDDER");}
 {TKPARENTIZQ} {printf(" TKPARENTIZQ");
                 return PARIZQ;}
 {TKPARENTDER} {printf(" TKPARENTDER");
                 return PARDER;}
                /*return TKSUBINDDER;*/
+{LOGNEG} {printf(" LOGNEG"); return LOGNEG;}
 {LOGLESS} {printf(" LOGLESS");
-               }//return LOGLESS;}
+               return LOGLESS;}
 {LOGGREAT} {printf(" LOGGREAT");
-               }//return LOGGREAT;}
+               return LOGGREAT;}
 {LOGLEQ} {printf(" LOGLEQ");
-               }//return LOGLEQ;}
+               return LOGLEQ;}
 {LOGGEQ} {printf(" LOGGEQ");
-               }//return LOGGEQ;}
+               return LOGGEQ;}
 {LOGEQ} {printf(" LOGEQ");
-               }//return LOGEQ;}
+               return LOGEQ;}
 {LOGNOTEQ} {printf(" LOGNOTEQ");
-               }//return LOGNOTEQ;}
-{LOGNOT} {printf(" LOGNOT");
-               }//return LOGNOT;}
+               return LOGNOTEQ;}
 {LOGANDEW} {printf(" LOGANDEW");
-                }//return LOGANDEW;}
+                return LOGANDEW;}
 {LOGAND} {printf(" LOGAND");
-               }//return LOGAND;}
+               return LOGAND;}
 {LOGOREW} {printf(" LOGOREW");
-               }//return LOGOREW;}
+               return LOGOREW;}
 {LOGOR} {printf(" LOGOR");
-               }//return LOGOR;}
-{ASIGNIZQ} {printf(" ASIGNIZQ");
-               }//return ASIGNIZQ;}
-{PARENTASIGNIZQ} {printf(" PARENTASIGNIZQ");
-               }//return PARENTASIGNIZQ;}
-{ASIGNDER} {printf(" ASIGNDER");
-               }//return ASIGNDER;}
-{ASIGN}  {printf(" ASIGN");
-               }//return ASIGN;}
-{PARENTASIGNDER} {printf(" PARENTASIGNDER");
-                }//return PARENTASIGNDER;}
-{TKRANGO} {printf(" TKRANGO");
-               }//return TKRANGO;}
-{TKCOMA} {printf(" TKCOMA");
-                }//return TKCOMA;}
+               return LOGOR;}
+ /*{ASIGNIZQ} {printf(" ASIGNIZQ"); return ASIGNIZQ;} */
+ /*{ASIGN}  {printf(" ASIGN"); return ASIGN;} */
 {OPSUM} {printf(" OPSUM");
                return S;}
 {OPSUBS} {printf(" OPSUBS");
@@ -109,30 +80,23 @@ TKFUNCTION "function"
 {OPDIV} {printf(" OPDIV");
                return D;}
 {OPEXP} {printf(" OPEXP");
-               }//return OPEXP;}
+               return OPEXP;}
 {OPMOD} {printf(" OPMOD");
                return M;}
 {OPINTDIV} {printf(" OPINTDIV");
-               return DI;}
+               return DP;}
 
-{TKCOMMENT} {printf(" TKCOMMENT"); 
-               }//return TKCOMMENT;}/*ahora si toma todo el comentario*/
-{STRING} {printf(" STRING");
-               }//return STRING;}/*ahora si toma los string*/
+ /*{TKCOMMENT} {printf(" TKCOMMENT"); return TKCOMMENT;}*/ /*ahora si toma todo el comentario*/
+ /* {STRING} {printf(" STRING"); return STRING;}*//*ahora si toma los string*/
 {INTEGER} {printf(" INTEGER"); 
                return INTEGER;}/*modificado*/
 {FLOAT} {printf(" FLOAT");
-               return FLOAT;} /*ahora si toma los string
-{TKVALOR} {printf(" VALOR");
-            }//return TKVALOR;}   */
-{TKARRAY} {printf ("ARRAY");
-        }//return TKARRAY;} /*preguntar formato: Array( elementos ) or only array*/
-{TKCAT} {printf (" CAT"); 
-        }//return TKCAT;}/*preguntar formato: Array( elementos ) or only array*/
-
-{TKLIBRERIA} {printf(" LIBRERIA"); }//return TKLIBRERIA;}
-{TKFUNCTION} {printf(" FUNCTION"); }//return TKFUNCTION;}
-{VARIABLE} {printf(" VARIABLE"); return VARIABLE;}
+               return FLOAT;} 
+{TRUE} {printf(" TRUE");
+               return TRUE;} 
+{FALSE} {printf(" FALSE");
+               return FALSE;} 
+ /*{VARIABLE} {printf(" VARIABLE"); return VARIABLE;}*/
 %%
 /*
 int yywrap () {
