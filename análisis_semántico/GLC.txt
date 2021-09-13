@@ -17,28 +17,28 @@ T -> id | (E)
 
 LOG -> EQU 
 EQU -> EQ NEQU | NEQU
-EQ -> EQU LOGEQ EQ | NEQU
+EQ -> EQU == EQ | NEQU
 NEQU -> NEQ LESS  | LESS
-NEQ -> NEQU LOGNOTEQ NEQ | LESS
+NEQ -> NEQU != NEQ | LESS
 LESS -> LLS GREAT | GREAT
-LLS -> LESS LOGLESS LLS | GREAT
+LLS -> LESS < LLS | GREAT
 GREAT -> LGT DivP | DivP
-LGT -> GREAT LOGGREAT LGT | DivP
+LGT -> GREAT > LGT | DivP
 LESSEQ -> LEQ GREATEQ | GREATEQ
-LEQ -> LESSEQ LOGLEQ LEQ  | GREATEQ
+LEQ -> LESSEQ <= LEQ  | GREATEQ
 GREATEQ -> GEQ ANDEW | ANDEW
-GEQ -> GREATEQ LOGGEQ GEQ | ANDEW
+GEQ -> GREATEQ >= GEQ | ANDEW
 ANDEW -> YEW OREW | OREW
-YEW  -> ANDEW LOGANDEW YEW | OREW
+YEW  -> ANDEW & YEW | OREW
 OREW -> OEW AND | AND
-OEW -> OREW LOGOREW OEW | AND
+OEW -> OREW \| OEW | AND   # \| es una forma de distinguir el símbolo o lógico ("|") y la separación | de salidas
 AND -> Y OR | OR
-Y -> AND LOGAND Y  | OR
+Y -> AND && Y  | OR
 OR  -> O Expo | Expo
-O -> OR LOGOR O | Expo
-NEG -> NO  | T
-NO -> LOGNEG LOG  | T
-T  -> TRUE  | FALSE  | INTEGER  | PARIZQ LOG PARDER
+O -> OR \|\| O | Expo   # también se usa aquí
+NEG -> NO  | TL
+NO -> ! LOG  | TL
+TL  -> TRUE  | FALSE  | INTEGER  | (LOG)
     
 
 ARITLOG -> LOG | E 
@@ -58,6 +58,20 @@ FISRT(DP') C FISRT(DP) = {id, (}
 FISRT(M') C FISRT(M) = {id, (}
 FISRT(Ex) C FISRT(Exp) = {id, (}
 
+FIRST(LOG) C ... C FIRST(NO) = {!, TRUE, FALSE, INTEGER, (}
+FIRST(EQ) = {!, TRUE, FALSE, INTEGER, (}
+FIRST(NEQ) = {!, TRUE, FALSE, INTEGER, (}
+FIRST(LLS) = {!, TRUE, FALSE, INTEGER, (}
+FIRST(LGT) = {!, TRUE, FALSE, INTEGER, (}
+FIRST(LEQ) = {!, TRUE, FALSE, INTEGER, (}
+FIRST(GEQ) = {!, TRUE, FALSE, INTEGER, (}
+FIRST(YEW) = {!, TRUE, FALSE, INTEGER, (}
+FIRST(OEW) = {!, TRUE, FALSE, INTEGER, (}
+FIRST(Y) = {!, TRUE, FALSE, INTEGER, (}
+FIRST(O) = {!, TRUE, FALSE, INTEGER, (}
+
+FIRST(ARITLOG) = {id, (, !, TRUE, FALSE, INTEGER}
+
 
 FOLLOW():
 
@@ -71,6 +85,17 @@ FOLLOW(DP') C FISRT(DP') U {%/%} = {id, (, %/%}
 FOLLOW(M') C FISRT(M') U {%%} = {id, (, %%}
 FOLLOW(Ex) C FISRT(Ex) U {^} = {id, (, ^}
 
+FOLLOW(LOG) C ... C FOLLOW(NEG) U {$} = {$}
+FOLLOW(EQ) = {!, TRUE, FALSE, INTEGER, (}
+FOLLOW(NEQ) = {!, TRUE, FALSE, INTEGER, (}
+FOLLOW(LLS) = {!, TRUE, FALSE, INTEGER, (}
+FOLLOW(LGT) = {!, TRUE, FALSE, INTEGER, (}
+FOLLOW(LEQ) = {!, TRUE, FALSE, INTEGER, (}
+FOLLOW(GEQ) = {!, TRUE, FALSE, INTEGER, (}
+FOLLOW(YEW) = {!, TRUE, FALSE, INTEGER, (}
+FOLLOW(OEW) = {!, TRUE, FALSE, INTEGER, (}
+FOLLOW(Y) = {!, TRUE, FALSE, INTEGER, (}
+FOLLOW(O) = {!, TRUE, FALSE, INTEGER, (}
 
 TAS:
 
@@ -100,6 +125,10 @@ Se agrega M[M, id] E-> S (1)
 Se agrega M[M, (] E-> S (1)
 Se agrega M[M', id] E-> S (1)
 Se agrega M[M', (] E-> S (1)
+Se agrega M[Exp, id] E-> S (1)
+Se agrega M[Exp, (] E-> S (1)
+Se agrega M[Ex, id] E-> S (1)
+Se agrega M[Ex, (] E-> S (1)
 Se agrega M[T, id] E-> S (1)
 Se agrega M[T, (] E-> S (1)
 

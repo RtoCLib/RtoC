@@ -238,7 +238,7 @@ O  : OR LOGOR O
     | Expo
     ;
 NEG   : NO
-    | T
+    | TL
     ;
 NO  : LOGNEG LOG
     {
@@ -248,9 +248,9 @@ NO  : LOGNEG LOG
         $$ = true;
       }
     }  
-    | T
+    | TL
     ;
-T   : TRUE
+TL   : TRUE
     | FALSE
     | INTEGER
     | PARIZQ LOG PARDER
